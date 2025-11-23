@@ -1,0 +1,12 @@
+#mytv
+DOMAIN-SUFFIX,content-api.mytvsuper.com
+
+#hoy
+DOMAIN-SUFFIX,api2.hoy.tv
+DOMAIN-SUFFIX,epg-file.hoy.tv
+
+#tvbanywhere
+DOMAIN-SUFFIX,apisfm.tvbanywhere.com
+
+#tdm
+DOMAIN-SUFFIX,appapi.tdm.com.mo

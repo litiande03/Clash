@@ -1,0 +1,6 @@
+#4gtv
+DOMAIN-SUFFIX,api2.4gtv.tv
+
+#litv
+DOMAIN-SUFFIX,proxy.svc.litv.tv
+DOMAIN-SUFFIX,p-cdnstatic.svc.litv.tv
