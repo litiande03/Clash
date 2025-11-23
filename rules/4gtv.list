@@ -1,0 +1,5 @@
+## 4GTV & Hamivideo
+DOMAIN-SUFFIX,4gtv.tv
+DOMAIN-SUFFIX,hinet.net
+DOMAIN-SUFFIX,ofiii.com
+IP-CIDR,134.122.134.0/24,no-resolve
