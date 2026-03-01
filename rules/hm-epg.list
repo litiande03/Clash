@@ -10,3 +10,8 @@ DOMAIN-SUFFIX,apisfm.tvbanywhere.com
 
 #tdm
 DOMAIN-SUFFIX,appapi.tdm.com.mo
+
+
+#香港授时中心和澳门一户通预约
+DOMAIN-SUFFIX,stdtime.gov.hk
+DOMAIN-SUFFIX,booking.gov.mo
