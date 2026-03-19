@@ -23,6 +23,8 @@ ruleset=📹 YouTube,clash-classic:https://raw.githubusercontent.com/blackmatrix
 ruleset=📲 Telegram,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Telegram/Telegram.list
 ruleset=🤖 OpenAI,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/OpenAI/OpenAI.list
 ruleset=✨ Gemini,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Gemini/Gemini.list
+ruleset=📽 Netflix,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Netflix/Netflix.list
+ruleset=🎥 Disney+,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.list
 ruleset=🎵 TikTok,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/TikTok/TikTok.list
 ruleset=🎮 Steam,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Steam/Steam.list
 ruleset=🐈‍⬛ GitHub,clash-classic:https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/GitHub/GitHub.list
@@ -47,13 +49,19 @@ custom_proxy_group=📹 YouTube`select`.*
 ;custom_proxy_group=📲 Telegram`select`[]🇭🇰 香港节点-自动`[]🇹🇼 台湾节点-自动`[]🇸🇬 新加坡节点-自动`[]🇲🇾 马来西亚节点-自动`[]🇯🇵 日本节点-自动`[]🇺🇲 美国节点-自动`[]🇰🇷 韩国节点-自动
 custom_proxy_group=📲 Telegram`select`[]🇭🇰 香港节点`[]🇹🇼 台湾节点`[]🇸🇬 新加坡节点`[]🇲🇾 马来西亚节点`[]🇯🇵 日本节点`[]🇺🇲 美国节点`[]🇰🇷 韩国节点
 
+;custom_proxy_group=📽 Netflix`select`[]🇭🇰 香港节点-自动`[]🇹🇼 台湾节点-自动`[]🇸🇬 新加坡节点-自动`[]🇲🇾 马来西亚节点-自动`[]🇯🇵 日本节点-自动`[]🇺🇲 美国节点-自动`[]🇰🇷 韩国节点-自动
+custom_proxy_group=📽 Netflix`select`[]🇭🇰 香港节点`[]🇹🇼 台湾节点`[]🇸🇬 新加坡节点`[]🇲🇾 马来西亚节点`[]🇯🇵 日本节点`[]🇺🇲 美国节点`[]🇰🇷 韩国节点
+
+;custom_proxy_group=🎥 Disney+`select`[]🇭🇰 香港节点-自动`[]🇹🇼 台湾节点-自动`[]🇸🇬 新加坡节点-自动`[]🇲🇾 马来西亚节点-自动`[]🇯🇵 日本节点-自动`[]🇺🇲 美国节点-自动`[]🇰🇷 韩国节点-自动
+custom_proxy_group=🎥 Disney+`select`[]🇭🇰 香港节点`[]🇹🇼 台湾节点`[]🇸🇬 新加坡节点`[]🇲🇾 马来西亚节点`[]🇯🇵 日本节点`[]🇺🇲 美国节点`[]🇰🇷 韩国节点
+
 ;custom_proxy_group=🎵 TikTok`select`[]🇹🇼 台湾节点-自动`[]🇸🇬 新加坡节点-自动`[]🇲🇾 马来西亚节点-自动`[]🇯🇵 日本节点-自动`[]🇺🇲 美国节点-自动`[]🇰🇷 韩国节点-自动
 custom_proxy_group=🎵 TikTok`select`[]🇹🇼 台湾节点`[]🇸🇬 新加坡节点`[]🇲🇾 马来西亚节点`[]🇯🇵 日本节点`[]🇺🇲 美国节点`[]🇰🇷 韩国节点
 
 ;custom_proxy_group=🤖 OpenAI`select`[]🇹🇼 台湾节点-自动`[]🇸🇬 新加坡节点-自动`[]🇲🇾 马来西亚节点-自动`[]🇯🇵 日本节点-自动`[]🇺🇲 美国节点-自动`[]🇰🇷 韩国节点-自动
 custom_proxy_group=🤖 OpenAI`select`[]🇹🇼 台湾节点`[]🇸🇬 新加坡节点`[]🇲🇾 马来西亚节点`[]🇯🇵 日本节点`[]🇺🇲 美国节点`[]🇰🇷 韩国节点
 
-custom_proxy_group=✨ Gemini`select`[]🇭🇰 香港节点`[]🇹🇼 台湾节点`[]🇸🇬 新加坡节点`[]🇲🇾 马来西亚节点`[]🇯🇵 日本节点`[]🇺🇲 美国节点`[]🇰🇷 韩国节点
+custom_proxy_group=✨ Gemini`select`[]🇹🇼 台湾节点`[]🇸🇬 新加坡节点`[]🇲🇾 马来西亚节点`[]🇯🇵 日本节点`[]🇺🇲 美国节点`[]🇰🇷 韩国节点
 
 custom_proxy_group=🐋 Docker`select`.*
 
