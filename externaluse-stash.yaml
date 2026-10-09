@@ -34,30 +34,18 @@ dns:
 
 # 多个机场：每个机场单独一条，名字自定、不要重复
 # url 用机场提供的 Clash / Stash 订阅链接
-# override.proxy-name：去掉节点名最前面的 emoji（含国旗）和空格，节点保留
-# 例：🇭🇰 香港B1 → 香港B1
 proxy-providers:
   机场A:
     url: "https://example.com/clash-sub-a"
     interval: 3600
-    override:
-      proxy-name:
-        - pattern: '^[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}\s]+'
-          target: ""
   机场B:
     url: "https://example.com/clash-sub-b"
     interval: 3600
-    override:
-      proxy-name:
-        - pattern: '^[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}\s]+'
-          target: ""
   # 机场C:
   #   url: "https://example.com/clash-sub-c"
   #   interval: 3600
-  #   override:
-  #     proxy-name:
-  #       - pattern: '^[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}\s]+'
-  #         target: ""
+  #   # 只从该订阅里筛一部分节点时可用：
+  #   # filter: "香港|台湾"
 
 proxy-groups:
   - name: 国外流量
@@ -297,8 +285,6 @@ proxy-groups:
     include-all: true
     filter: "KR|Korea|韩国|KOR|首尔|韩|韓"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/kr.png
-
-
 
 rule-providers:
   ip138:
