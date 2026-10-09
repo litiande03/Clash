@@ -34,21 +34,30 @@ dns:
 
 # 多个机场：每个机场单独一条，名字自定、不要重复
 # url 用机场提供的 Clash / Stash 订阅链接
-# 排除节点名中的 emoji（含国旗符号）；只保留无 emoji 的节点
-# emoji-exclude: (?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])
+# override.proxy-name：去掉节点名最前面的 emoji（含国旗）和空格，节点保留
+# 例：🇭🇰 香港B1 → 香港B1
 proxy-providers:
   机场A:
     url: "https://example.com/clash-sub-a"
     interval: 3600
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}]).+$'
+    override:
+      proxy-name:
+        - pattern: '^[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}\s]+'
+          target: ""
   机场B:
     url: "https://example.com/clash-sub-b"
     interval: 3600
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}]).+$'
+    override:
+      proxy-name:
+        - pattern: '^[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}\s]+'
+          target: ""
   # 机场C:
   #   url: "https://example.com/clash-sub-c"
   #   interval: 3600
-  #   filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}]).+$'
+  #   override:
+  #     proxy-name:
+  #       - pattern: '^[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}\s]+'
+  #         target: ""
 
 proxy-groups:
   - name: 国外流量
@@ -77,7 +86,6 @@ proxy-groups:
   - name: 手动切换
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}]).+$'
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/sdxz.png
 
   - name: 自动选择
@@ -86,7 +94,7 @@ proxy-groups:
     url: https://i.ytimg.com/generate_204
     interval: 60
     tolerance: 150
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:港|香港|HongKong|HK|Hong Kong|台|台湾|台灣|新北|彰化|TW|Taiwan|新加坡|狮城|SG|Singapore|马来西亚|Malaysia|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas|KR|Korea|韩国|KOR|首尔|韩|韓)).*$'
+    filter: "^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:港|香港|HongKong|HK|Hong Kong|台|台湾|台灣|新北|彰化|TW|Taiwan|新加坡|狮城|SG|Singapore|马来西亚|Malaysia|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas|KR|Korea|韩国|KOR|首尔|韩|韓)).*$"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/zdxz.png
 
   - name: 自动选择(非港)
@@ -95,25 +103,25 @@ proxy-groups:
     url: https://i.ytimg.com/generate_204
     interval: 60
     tolerance: 150
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:台|台湾|台灣|新北|彰化|TW|Taiwan|新加坡|狮城|SG|Singapore|马来西亚|Malaysia|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas|KR|Korea|韩国|KOR|首尔|韩|韓)).*$'
+    filter: "^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:台|台湾|台灣|新北|彰化|TW|Taiwan|新加坡|狮城|SG|Singapore|马来西亚|Malaysia|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas|KR|Korea|韩国|KOR|首尔|韩|韓)).*$"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/zdxz.png
 
   - name: pixman
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:港|香港|HongKong|HK|Hong Kong)).+$'
+    filter: "港|香港|HongKong|HK|Hong Kong"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/myTV_SUPER.png
 
   - name: 奥视澳门
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:澳门|澳門|Macao|Macau|macao|macau|港|香港|HongKong|HK|Hong Kong)).+$'
+    filter: "澳门|澳門|Macao|Macau|macao|macau|港|香港|HongKong|HK|Hong Kong"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/tdm.png
 
   - name: 4gtv
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:台湾|台灣|台|新北|彰化|TW|Taiwan)).+$'
+    filter: "台湾|台灣|台|新北|彰化|TW|Taiwan"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/4GTV.png
 
   - name: 内网穿透
@@ -127,7 +135,7 @@ proxy-groups:
   - name: 中国大陆节点
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:广东河源电信|广东广州电信|内网)).+$'
+    filter: "广东河源电信|广东广州电信|内网"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/cn.png
 
   - name: 漏网之鱼
@@ -251,44 +259,45 @@ proxy-groups:
   - name: 香港节点
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:港|香港|HongKong|HK|Hong Kong)).+$'
+    filter: "港|香港|HongKong|HK|Hong Kong"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/hk.png
 
   - name: 台湾节点
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:台|台湾|台灣|新北|彰化|TW|Taiwan)).+$'
+    filter: "台|台湾|台灣|新北|彰化|TW|Taiwan"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/tw.png
 
   - name: 新加坡节点
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:新加坡|狮城|SG|Singapore)).+$'
+    filter: "新加坡|狮城|SG|Singapore"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/sg.png
 
   - name: 马来西亚节点
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:马来西亚|Malaysia)).+$'
+    filter: "马来西亚|Malaysia"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/my.png
 
   - name: 日本节点
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan)).+$'
+    filter: "日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/jp.png
 
   - name: 美国节点
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas)).+$'
+    filter: "美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/us.png
 
   - name: 韩国节点
     type: select
     include-all: true
-    filter: '^(?!.*[\x{1F300}-\x{1FAFF}\x{2600}-\x{27BF}\x{2300}-\x{23FF}\x{2B00}-\x{2BFF}\x{1F1E0}-\x{1F1FF}\x{FE00}-\x{FE0F}\x{200D}])(?=.*(?:KR|Korea|韩国|KOR|首尔|韩|韓)).+$'
+    filter: "KR|Korea|韩国|KOR|首尔|韩|韓"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/kr.png
+
 
 
 rule-providers:
