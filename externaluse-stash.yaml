@@ -101,9 +101,12 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/myTV_SUPER.png
 
   - name: 奥视澳门
-    type: select
+    type: url-test
     include-all: true
-    filter: "澳门|澳門|Macao|Macau|macao|macau|港|香港|HongKong|HK|Hong Kong"
+    url: https://i.ytimg.com/generate_204
+    interval: 60
+    tolerance: 150
+    filter: "^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:澳门|澳門|Macao|Macau|macao|macau)).*$"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/tdm.png
 
   - name: 4gtv
