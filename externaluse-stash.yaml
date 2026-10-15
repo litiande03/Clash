@@ -143,6 +143,7 @@ proxy-groups:
     proxies:
       - 自动选择
       - 香港节点
+      - 澳门节点
       - 台湾节点
       - 新加坡节点
       - 马来西亚节点
@@ -288,6 +289,16 @@ proxy-groups:
     include-all: true
     filter: "KR|Korea|韩国|KOR|首尔|韩|韓"
     icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/kr.png
+
+  - name: 澳门节点
+    type: url-test
+    include-all: true
+    url: https://i.ytimg.com/generate_204
+    interval: 60
+    tolerance: 150
+    filter: "^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:澳门|澳門|Macao|Macau|macao|macau)).*$"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/tdm.png
+
 
 rule-providers:
   ip138:
