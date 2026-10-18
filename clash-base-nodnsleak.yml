@@ -1,9 +1,9 @@
-# Clash / Mihomo 底包：防 DNS 泄露（供 subconverter clash_rule_base 使用）
-# 逻辑：
-# - fake-ip：域名先由 Clash 接管，避免系统 DNS 直接查询国外域名
-# - nameserver：国内 DNS（直连域名、解析 DoH 主机名）
-# - fallback：国外 DoH/DoT；解析结果非 CN 时采用，降低污染与泄露
-# - GEOIP no-resolve 在 ini 规则里配合使用
+# Clash / Mihomo 底包：防 DNS 泄露（兼顾节点可用性）
+# 说明：
+# - 不用 fake-ip（容易导致机场节点域名解析失败、大量节点不可用）
+# - 用 redir-host：DNS 仍由 Clash 处理，系统不会直接查国外域名
+# - proxy-server-nameserver：专门解析节点服务器域名，走明文 IP DNS，避免连节点前死锁
+# - nameserver 国内 + fallback 国外 DoH/IP，非 CN 结果走 fallback，防污染/泄露
 
 mixed-port: 7890
 socks-port: 7891
@@ -16,69 +16,31 @@ external-controller: 127.0.0.1:9090
 
 profile:
   store-selected: true
-  store-fake-ip: true
 
 dns:
   enable: true
   ipv6: true
-  listen: 0.0.0.0:1053
-  enhanced-mode: fake-ip
-  fake-ip-range: 198.18.0.1/16
+  enhanced-mode: redir-host
+  listen: 127.0.0.1:1053
   use-hosts: true
-  # 这些域名返回真实 IP，避免局域网 / 特殊业务异常
-  fake-ip-filter:
-    - "*.lan"
-    - "*.local"
-    - "*.localhost"
-    - "+.local"
-    - localhost
-    - "*.home.arpa"
-    - "time.*.com"
-    - "time.*.gov"
-    - "time.*.apple.com"
-    - "time1.*.com"
-    - "time2.*.com"
-    - "time3.*.com"
-    - "time4.*.com"
-    - "time5.*.com"
-    - "time6.*.com"
-    - "time7.*.com"
-    - "ntp.*.com"
-    - "ntp1.*.com"
-    - "ntp2.*.com"
-    - "ntp3.*.com"
-    - "ntp4.*.com"
-    - "ntp5.*.com"
-    - "ntp6.*.com"
-    - "ntp7.*.com"
-    - "*.nr-data.net"
-    - "+.msftconnecttest.com"
-    - "+.msftncsi.com"
-    - "localhost.ptlogin2.qq.com"
-    - "+.stun.*.*"
-    - "+.stun.*.*.*"
-    - "+.stun.*.*.*.*"
-    - "lens.l.google.com"
-    - "*.n.n.srv.nintendo.net"
-    - "+.stun.playstation.net"
-    - "xbox.*.*.microsoft.com"
-    - "*.*.xboxlive.com"
-    - "*.mcdn.bilivideo.cn"
+  # 仅 IP，用来解析下面 DoH 主机名
   default-nameserver:
     - 223.5.5.5
     - 223.6.6.6
+  # 节点域名单独解析，不走 fake-ip / 不依赖代理，避免节点全挂
+  proxy-server-nameserver:
+    - 223.5.5.5
+    - 8.8.8.8
   nameserver:
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
     - 223.5.5.5
     - 223.6.6.6
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
   fallback:
+    - 1.1.1.1
+    - 8.8.8.8
     - https://1.1.1.1/dns-query
-    - https://1.0.0.1/dns-query
     - https://8.8.8.8/dns-query
-    - https://dns.google/dns-query
-    - tls://1.1.1.1:853
-    - tls://8.8.8.8:853
   fallback-filter:
     geoip: true
     geoip-code: CN
