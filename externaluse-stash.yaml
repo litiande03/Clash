@@ -348,6 +348,12 @@ rule-providers:
     format: text
     url: https://raw.githubusercontent.com/litiande03/Clash/refs/heads/master/rules/IntranetIP.list
     interval: 86400
+  wechat:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/WeChat/WeChat.list
+    interval: 86400
   youtube:
     type: http
     behavior: classical
@@ -417,6 +423,8 @@ rules:
   - RULE-SET,tmd,奥视澳门
   - RULE-SET,4gtv,4gtv
   - RULE-SET,intranet,内网穿透
+  # 微信走国内流量（默认 DIRECT），避免开代理后变慢
+  - RULE-SET,wechat,国内流量
   - RULE-SET,youtube,YouTube
   - RULE-SET,telegram,Telegram
   - RULE-SET,openai,OpenAI
