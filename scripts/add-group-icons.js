@@ -1,13 +1,15 @@
 /**
  * Clash Verge / Mihomo 脚本：
  * 1) 去掉 proxy-groups 名称里的 emoji
- * 2) 补上 icons/ 目录下对应的分组图标
+ * 2) 补上 icons/ 目录下对应的分组图标（与 scripts/group-icons.js 一致）
  * 3) 同步改写规则 / 其他分组里对该名称的引用
  *
  * 用法（Clash Verge Rev）：
  *   订阅 → 脚本 → 粘贴本文件全部内容 → 启用
  *
  * 文档：https://clashvergerev.com/en/guide/script
+ *
+ * 注意：Verge 脚本不能 require，图标表需与 group-icons.js 手工同步。
  */
 
 const ICON_BASE =
