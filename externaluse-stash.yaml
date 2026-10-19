@@ -1,12 +1,12 @@
-# 外用 Stash / Clash Meta 配置（由 externaluse-shadowrocket.conf 生成）
-# 分组与分流对齐小火箭；名称去 emoji；icon 与 scripts/group-icons.js 一致
-# 用法（Stash）：
-# 1. 在下方 proxy-providers 里按机场各写一条，改好 url
-# 2. Stash > 配置 > 从文件/URL 导入本 yaml
-# 3. 模式选 rule（规则）
+# 外用 Stash 配置（由 externaluse-shadowrocket.conf 生成）
+# 只含 DNS / 分组 / 分流 / icon；机场订阅请在 Stash 里自行添加
+# 策略组用 include-all，会自动汇总 Stash 已添加订阅里的节点
+# 用法：
+# 1. Stash 首页/订阅里添加机场（只负责节点）
+# 2. 配置 > 从文件/URL 导入本 yaml，模式选 rule
 # 重新生成：node scripts/build-externaluse-yaml.js
 # 远程更新（推到仓库后）：
-# https://raw.githubusercontent.com/litiande03/Clash/refs/heads/master/externaluse.yaml
+# https://raw.githubusercontent.com/litiande03/Clash/refs/heads/master/externaluse-stash.yaml
 
 mode: rule
 log-level: info
@@ -40,15 +40,6 @@ dns:
       - 240.0.0.0/4
       - 0.0.0.0/32
       - 127.0.0.1/32
-
-# 多个机场：每个机场单独一条，名字自定、不要重复
-proxy-providers:
-  机场A:
-    url: "https://example.com/clash-sub-a"
-    interval: 3600
-  机场B:
-    url: "https://example.com/clash-sub-b"
-    interval: 3600
 
 proxy-groups:
   - name: 国外流量
