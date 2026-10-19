@@ -1,16 +1,17 @@
 /**
- * Clash Verge / Mihomo 脚本：给 proxy-groups 补上与 externaluse-stash.yaml 一致的 icon
- * 分组名兼容 externaluse.ini（带 emoji）与无 emoji 名称
+ * Clash Verge / Mihomo 脚本：
+ * 1) 去掉 proxy-groups 名称里的 emoji
+ * 2) 补上 icons/ 目录下对应的分组图标
+ * 3) 同步改写规则 / 其他分组里对该名称的引用
  *
  * 用法（Clash Verge Rev）：
  *   订阅 → 脚本 → 粘贴本文件全部内容 → 启用
- *   必须包含 function main(config) { ... return config; }
  *
  * 文档：https://clashvergerev.com/en/guide/script
  */
 
 const ICON_BASE =
-  "https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico";
+  "https://raw.githubusercontent.com/litiande03/Clash/master/icons";
 
 const ICON_BY_NAME = {
   国外流量: "gw.png",
@@ -41,7 +42,7 @@ const ICON_BY_NAME = {
   日本节点: "jp.png",
   美国节点: "us.png",
   韩国节点: "kr.png",
-  澳门节点: "tdm.png",
+  澳门节点: "mo.png",
 };
 
 const EMOJI_ALIASES = {
@@ -76,10 +77,10 @@ const EMOJI_ALIASES = {
 
 function stripEmoji(name) {
   return String(name)
-    .replace(
-      /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{200D}\u{20E3}]/gu,
-      ""
-    )
+    .replace(/[\u{1F1E0}-\u{1F1FF}]/gu, "") // 国旗
+    .replace(/[\u{1F300}-\u{1FAFF}]/gu, "")
+    .replace(/[\u{2600}-\u{27BF}]/gu, "")
+    .replace(/[\u{FE0F}\u{200D}\u{20E3}]/gu, "")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -100,16 +101,74 @@ function getIconUrl(groupName) {
   return ICON_BASE + "/" + file;
 }
 
+function renameInList(list, renameMap) {
+  if (!list || !list.length) return;
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i];
+    if (typeof item === "string" && renameMap[item]) {
+      list[i] = renameMap[item];
+    }
+  }
+}
+
+function renameInRules(rules, renameMap) {
+  if (!rules || !rules.length) return;
+  // 长名称优先，避免短名误伤
+  const pairs = Object.keys(renameMap)
+    .map(function (from) {
+      return { from: from, to: renameMap[from] };
+    })
+    .sort(function (a, b) {
+      return b.from.length - a.from.length;
+    });
+
+  for (let i = 0; i < rules.length; i++) {
+    let rule = rules[i];
+    if (typeof rule !== "string") continue;
+    for (let j = 0; j < pairs.length; j++) {
+      const from = pairs[j].from;
+      const to = pairs[j].to;
+      if (rule.indexOf(from) === -1) continue;
+      // 只替换策略字段里的完整分组名（按逗号分段）
+      const parts = rule.split(",");
+      for (let k = 0; k < parts.length; k++) {
+        if (parts[k] === from) parts[k] = to;
+      }
+      rule = parts.join(",");
+    }
+    rules[i] = rule;
+  }
+}
+
 function main(config) {
   if (!config || !config["proxy-groups"]) return config;
 
   const groups = config["proxy-groups"];
+  const renameMap = {};
+
+  // 先算 icon + 重命名表（用原名匹配 icon）
   for (let i = 0; i < groups.length; i++) {
     const group = groups[i];
     if (!group || !group.name) continue;
-    const icon = getIconUrl(group.name);
+
+    const oldName = group.name;
+    const newName = normalizeGroupName(oldName);
+    const icon = getIconUrl(oldName);
     if (icon) group.icon = icon;
+
+    if (newName && newName !== oldName) {
+      renameMap[oldName] = newName;
+      group.name = newName;
+    }
   }
+
+  // 更新其他分组 proxies 里的引用
+  for (let i = 0; i < groups.length; i++) {
+    renameInList(groups[i].proxies, renameMap);
+  }
+
+  // 更新 rules 里的策略名
+  renameInRules(config.rules, renameMap);
 
   return config;
 }

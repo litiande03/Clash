@@ -64,6 +64,7 @@ proxy-groups:
     proxies:
       - 自动选择
       - 手动切换
+      - 故障转移
       - DIRECT
       - 香港节点
       - 台湾节点
@@ -72,7 +73,7 @@ proxy-groups:
       - 日本节点
       - 美国节点
       - 韩国节点
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/gw.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/gw.png
 
   - name: 国内流量
     type: select
@@ -80,12 +81,20 @@ proxy-groups:
       - DIRECT
       - 国外流量
       - 自动选择
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/gn.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/gn.png
+
+  - name: 故障转移
+    type: fallback
+    include-all: true
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/Dinosaur.png
 
   - name: 手动切换
     type: select
     include-all: true
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/sdxz.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/sdxz.png
 
   - name: 自动选择
     type: url-test
@@ -93,8 +102,8 @@ proxy-groups:
     url: https://i.ytimg.com/generate_204
     interval: 60
     tolerance: 150
-    filter: "^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:港|香港|HongKong|HK|Hong Kong|台|台湾|台灣|新北|彰化|TW|Taiwan|新加坡|狮城|SG|Singapore|马来西亚|Malaysia|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas|KR|Korea|韩国|KOR|首尔|韩|韓)).*$"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/zdxz.png
+    filter: "(^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:港|香港|HongKong|HK|Hong Kong|台|台湾|台灣|新北|彰化|TW|Taiwan|新加坡|狮城|SG|Singapore|马来西亚|Malaysia|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas|KR|Korea|韩国|KOR|首尔|韩|韓)).*$)"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/zdxz.png
 
   - name: 自动选择(非港)
     type: url-test
@@ -102,14 +111,14 @@ proxy-groups:
     url: https://i.ytimg.com/generate_204
     interval: 60
     tolerance: 150
-    filter: "^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:台|台湾|台灣|新北|彰化|TW|Taiwan|新加坡|狮城|SG|Singapore|马来西亚|Malaysia|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas|KR|Korea|韩国|KOR|首尔|韩|韓)).*$"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/zdxz.png
+    filter: "(^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:台|台湾|台灣|新北|彰化|TW|Taiwan|新加坡|狮城|SG|Singapore|马来西亚|Malaysia|日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan|美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas|KR|Korea|韩国|KOR|首尔|韩|韓)).*$)"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/zdxz.png
 
-  - name: pixman
+  - name: myTV SUPER
     type: select
     include-all: true
     filter: "港|香港|HongKong|HK|Hong Kong"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/myTV_SUPER.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/myTV_SUPER.png
 
   - name: 奥视澳门
     type: url-test
@@ -117,28 +126,27 @@ proxy-groups:
     url: https://i.ytimg.com/generate_204
     interval: 60
     tolerance: 150
-    filter: "^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:澳门|澳門|Macao|Macau|macao|macau)).*$"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/tdm.png
+    filter: "(^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:澳门|澳門|Macao|Macau|macao|macau)).*$)"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/tdm.png
 
   - name: 4gtv
     type: select
     include-all: true
     filter: "台湾|台灣|台|新北|彰化|TW|Taiwan"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/4GTV.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/4GTV.png
 
   - name: 内网穿透
     type: select
     proxies:
       - 中国大陆节点
-      - 手动切换
       - DIRECT
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/nwct.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/nwct.png
 
   - name: 中国大陆节点
     type: select
     include-all: true
-    filter: "广东河源电信|广东广州电信|内网"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/cn.png
+    filter: "广东河源电信-01|广东河源电信-02"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/cn.png
 
   - name: 漏网之鱼
     type: select
@@ -147,11 +155,12 @@ proxy-groups:
       - 自动选择
       - DIRECT
       - 手动切换
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/lwzy.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/lwzy.png
 
   - name: YouTube
     type: select
     proxies:
+      - 故障转移
       - 自动选择
       - 香港节点
       - 澳门节点
@@ -162,61 +171,7 @@ proxy-groups:
       - 美国节点
       - 韩国节点
       - 手动切换
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/YouTube.png
-
-  - name: Telegram
-    type: select
-    proxies:
-      - 自动选择
-      - 香港节点
-      - 台湾节点
-      - 新加坡节点
-      - 马来西亚节点
-      - 日本节点
-      - 美国节点
-      - 韩国节点
-      - 手动切换
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/Telegram.png
-
-  - name: TikTok
-    type: select
-    proxies:
-      - 自动选择(非港)
-      - 台湾节点
-      - 新加坡节点
-      - 马来西亚节点
-      - 日本节点
-      - 美国节点
-      - 韩国节点
-      - 手动切换
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/TikTok.png
-
-  - name: OpenAI
-    type: select
-    proxies:
-      - 自动选择(非港)
-      - 台湾节点
-      - 新加坡节点
-      - 马来西亚节点
-      - 日本节点
-      - 美国节点
-      - 韩国节点
-      - 手动切换
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/ChatGPT.png
-
-  - name: Gemini
-    type: select
-    proxies:
-      - 自动选择
-      - 香港节点
-      - 台湾节点
-      - 新加坡节点
-      - 马来西亚节点
-      - 日本节点
-      - 美国节点
-      - 韩国节点
-      - 手动切换
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/AI.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/YouTube.png
 
   - name: Disney+
     type: select
@@ -230,7 +185,61 @@ proxy-groups:
       - 美国节点
       - 韩国节点
       - 手动切换
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/Disney+.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/Disney+.png
+
+  - name: Telegram
+    type: select
+    proxies:
+      - 自动选择
+      - 香港节点
+      - 台湾节点
+      - 新加坡节点
+      - 马来西亚节点
+      - 日本节点
+      - 美国节点
+      - 韩国节点
+      - 手动切换
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/Telegram.png
+
+  - name: TikTok
+    type: select
+    proxies:
+      - 自动选择(非港)
+      - 台湾节点
+      - 新加坡节点
+      - 马来西亚节点
+      - 日本节点
+      - 美国节点
+      - 韩国节点
+      - 手动切换
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/TikTok.png
+
+  - name: OpenAI
+    type: select
+    proxies:
+      - 自动选择(非港)
+      - 台湾节点
+      - 新加坡节点
+      - 马来西亚节点
+      - 日本节点
+      - 美国节点
+      - 韩国节点
+      - 手动切换
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/ChatGPT.png
+
+  - name: Gemini
+    type: select
+    proxies:
+      - 自动选择
+      - 香港节点
+      - 台湾节点
+      - 新加坡节点
+      - 马来西亚节点
+      - 日本节点
+      - 美国节点
+      - 韩国节点
+      - 手动切换
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/AI.png
 
   - name: AppleIntelligence
     type: select
@@ -243,11 +252,12 @@ proxy-groups:
       - 美国节点
       - 韩国节点
       - 手动切换
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/Appleintelligence.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/Appleintelligence.png
 
   - name: Google
     type: select
     proxies:
+      - 故障转移
       - 自动选择
       - 香港节点
       - 台湾节点
@@ -257,49 +267,13 @@ proxy-groups:
       - 美国节点
       - 韩国节点
       - 手动切换
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/Google.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/Google.png
 
   - name: 香港节点
     type: select
     include-all: true
     filter: "港|香港|HongKong|HK|Hong Kong"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/hk.png
-
-  - name: 台湾节点
-    type: select
-    include-all: true
-    filter: "台|台湾|台灣|新北|彰化|TW|Taiwan"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/tw.png
-
-  - name: 新加坡节点
-    type: select
-    include-all: true
-    filter: "新加坡|狮城|SG|Singapore"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/sg.png
-
-  - name: 马来西亚节点
-    type: select
-    include-all: true
-    filter: "马来西亚|Malaysia"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/my.png
-
-  - name: 日本节点
-    type: select
-    include-all: true
-    filter: "日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/jp.png
-
-  - name: 美国节点
-    type: select
-    include-all: true
-    filter: "美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/us.png
-
-  - name: 韩国节点
-    type: select
-    include-all: true
-    filter: "KR|Korea|韩国|KOR|首尔|韩|韓"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/kr.png
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/hk.png
 
   - name: 澳门节点
     type: url-test
@@ -307,8 +281,44 @@ proxy-groups:
     url: https://i.ytimg.com/generate_204
     interval: 60
     tolerance: 150
-    filter: "^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:澳门|澳門|Macao|Macau|macao|macau)).*$"
-    icon: https://raw.githubusercontent.com/litiande03/Clash/master/stash-ico/tdm.png
+    filter: "(^(?!.*x(?:[2-9]|[1-9][0-9]))(?=.*(?:澳门|澳門|Macao|Macau|macao|macau)).*$)"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/mo.png
+
+  - name: 台湾节点
+    type: select
+    include-all: true
+    filter: "台|台湾|台灣|新北|彰化|TW|Taiwan"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/tw.png
+
+  - name: 新加坡节点
+    type: select
+    include-all: true
+    filter: "新加坡|狮城|SG|Singapore"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/sg.png
+
+  - name: 马来西亚节点
+    type: select
+    include-all: true
+    filter: "马来西亚|Malaysia"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/my.png
+
+  - name: 日本节点
+    type: select
+    include-all: true
+    filter: "日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/jp.png
+
+  - name: 美国节点
+    type: select
+    include-all: true
+    filter: "美国|美利坚|USA|U.S.A|United States|America|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|Las Vegas"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/us.png
+
+  - name: 韩国节点
+    type: select
+    include-all: true
+    filter: "KR|Korea|韩国|KOR|首尔|韩|韓"
+    icon: https://raw.githubusercontent.com/litiande03/Clash/master/icons/kr.png
 
 
 rule-providers:
@@ -360,6 +370,12 @@ rule-providers:
     format: text
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.list
     interval: 86400
+  disney:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.list
+    interval: 86400
   telegram:
     type: http
     behavior: classical
@@ -377,12 +393,6 @@ rule-providers:
     behavior: classical
     format: text
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gemini/Gemini.list
-    interval: 86400
-  disney:
-    type: http
-    behavior: classical
-    format: text
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.list
     interval: 86400
   apple-intelligence:
     type: http
@@ -418,18 +428,18 @@ rule-providers:
 # 规则顺序对齐小火箭：ip138 → 媒体 → 内网 → App → GFW → 国内 IP / GEOIP → 漏网之鱼
 rules:
   - RULE-SET,ip138,国外流量
-  - RULE-SET,pixman,pixman
-  - RULE-SET,pixman-ntp,pixman
+  - RULE-SET,pixman,myTV SUPER
+  - RULE-SET,pixman-ntp,myTV SUPER
   - RULE-SET,tmd,奥视澳门
   - RULE-SET,4gtv,4gtv
   - RULE-SET,intranet,内网穿透
   # 微信走国内流量（默认 DIRECT），避免开代理后变慢
   - RULE-SET,wechat,国内流量
   - RULE-SET,youtube,YouTube
+  - RULE-SET,disney,Disney+
   - RULE-SET,telegram,Telegram
   - RULE-SET,openai,OpenAI
   - RULE-SET,gemini,Gemini
-  - RULE-SET,disney,Disney+
   - RULE-SET,apple-intelligence,AppleIntelligence
   - RULE-SET,tiktok,TikTok
   - RULE-SET,google,Google
