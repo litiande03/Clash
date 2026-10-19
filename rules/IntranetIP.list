@@ -1,14 +1,13 @@
-# 本地/局域网地址
-# 参考：https://en.wikipedia.org/wiki/Reserved_IP_addresses
+# 内网穿透专用规则（走家里可访问内网的节点）
+# 注意：切勿加入 Clash fake-ip 网段 198.18.0.0/16
+#       否则开启 fake-ip 后，几乎所有域名都会被匹配进本分组
 
-# ACL4SSR标志 如没有，代表不是用ACL4SSR规则
-DOMAIN-SUFFIX,acl4.ssr
-
-#IPTV走内网地址
+#IPTV / 家里运营商相关公网段（按需保留）
 IP-CIDR,125.88.52.0/24,no-resolve
 IP-CIDR,125.88.53.0/24,no-resolve
 IP-CIDR,125.88.54.0/24,no-resolve
 IP-CIDR,125.88.55.0/24,no-resolve
+IP-CIDR,125.88.69.0/24,no-resolve
 IP-CIDR,125.88.70.0/24,no-resolve
 IP-CIDR,125.88.82.0/24,no-resolve
 IP-CIDR,125.88.83.0/24,no-resolve
@@ -32,29 +31,21 @@ IP-CIDR,183.59.174.0/24,no-resolve
 IP-CIDR,183.59.200.0/24,no-resolve
 IP-CIDR,183.59.201.0/24,no-resolve
 IP-CIDR,183.57.59.0/24,no-resolve
-IP-CIDR,125.88.69.0/24,no-resolve
 IP-CIDR,59.37.208.0/24,no-resolve
 
-# 本地/局域网地址
-DOMAIN-SUFFIX,ip6-localhost
-DOMAIN-SUFFIX,ip6-loopback
-DOMAIN-SUFFIX,lan
-DOMAIN-SUFFIX,local
-DOMAIN-SUFFIX,localhost
-IP-CIDR,0.0.0.0/8,no-resolve
+# 家里局域网（RFC1918）
+# 若家里只用某一段，可改成更精确的网段，例如 192.168.1.0/24，减少误伤当前 Wi‑Fi 局域网
 IP-CIDR,10.0.0.0/8,no-resolve
-IP-CIDR,100.64.0.0/10,no-resolve
-IP-CIDR,127.0.0.0/8,no-resolve
 IP-CIDR,172.16.0.0/12,no-resolve
 IP-CIDR,192.168.0.0/16,no-resolve
-IP-CIDR,198.18.0.0/16,no-resolve
-IP-CIDR,224.0.0.0/4,no-resolve
-IP-CIDR6,::1/128,no-resolve
-IP-CIDR6,fc00::/7,no-resolve
-IP-CIDR6,fe80::/10,no-resolve
-IP-CIDR6,fd00::/8,no-resolve
+# Tailscale / CGNAT 等（不用可注释掉）
+#IP-CIDR,100.64.0.0/10,no-resolve
 
-# Router managed 路由器管理域名
+# 家里域名（按实际内网域名补充）
+DOMAIN-SUFFIX,lan
+#DOMAIN-SUFFIX,home.arpa
+
+# 路由器管理域名（远程管理家里路由时有用；不需要可整段注释）
 DOMAIN,instant.arubanetworks.com
 DOMAIN,setmeup.arubanetworks.com
 DOMAIN,router.asus.com
@@ -72,3 +63,8 @@ DOMAIN-SUFFIX,tendawifi.com
 DOMAIN-SUFFIX,zte.home
 DOMAIN-SUFFIX,tplogin.cn
 DOMAIN-SUFFIX,wifi.cmcc
+
+# ---- 已移除（会导致异常）----
+# IP-CIDR,198.18.0.0/16  ← Clash/Mihomo fake-ip 默认段，绝不能放进内网穿透
+# IP-CIDR,0.0.0.0/8、127.0.0.0/8、224.0.0.0/4 ← 本机/组播，不应走家里节点
+# DOMAIN-SUFFIX,local / localhost ← 过宽，易误伤本机与 mDNS
