@@ -188,13 +188,6 @@ function renderYaml(groups, providers, rules) {
   return `# 外用 Stash 配置（由 externaluse-shadowrocket.conf 生成）
 # 只含 DNS / 分组 / 分流 / icon；机场订阅请在 Stash 里自行添加
 # 策略组用 include-all，会自动汇总 Stash 已添加订阅里的节点
-#
-# 内网穿透注意：
-# - Stash：空策略组会被当成 DIRECT。请确认「中国大陆节点」里有家里节点
-# - 节点名需匹配 filter：广东河源电信 / 广东广州电信 / 内网
-# - 若组为空，请在「内网穿透」里改选「手动切换」并点家里节点
-# - 用 IP 访问内网时不要开「绕过局域网/私有地址」（若设置里有）
-#
 # 用法：
 # 1. Stash 首页/订阅里添加机场（只负责节点）
 # 2. 配置 > 从文件/URL 导入本 yaml，模式选 rule
@@ -209,7 +202,6 @@ ipv6: true
 dns:
   enable: true
   ipv6: true
-  # 尽量用真实 IP，避免内网域名落在 fake-ip 后匹配不到 IntranetIP
   enhanced-mode: redir-host
   use-hosts: true
   default-nameserver:
@@ -220,20 +212,14 @@ dns:
     - 8.8.8.8
   nameserver:
     - 223.5.5.5
+    - 223.6.6.6
     - https://dns.alidns.com/dns-query
-  # 若客户端仍走 fake-ip：私有域名强制真实解析
-  fake-ip-filter:
-    - geosite:private
-    - "+.lan"
-    - "+.local"
-    - "+.home.arpa"
-  nameserver-policy:
-    geosite:private: system
-    "+.lan": system
-    "+.local": system
+    - https://doh.pub/dns-query
   fallback:
     - 1.1.1.1
+    - 8.8.8.8
     - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -263,16 +249,13 @@ function main() {
   const groups = rawGroups.map((g) => {
     const newName = normalizeGroupName(g.name);
     if (newName !== g.name) renameMap[g.name] = newName;
-    let proxies = g.proxies.map((p) =>
-      p === "DIRECT" || p === "REJECT" ? p : normalizeGroupName(p)
-    );
-    // 内网穿透：手动切换放最前，避免「中国大陆节点」为空被当成 DIRECT 后默认直连失败
-    if (newName === "内网穿透" && proxies.length) {
-      const prefer = ["手动切换", "中国大陆节点", "DIRECT"];
-      const rest = proxies.filter((p) => !prefer.includes(p));
-      proxies = [...prefer.filter((p) => proxies.includes(p)), ...rest];
-    }
-    return { ...g, name: newName, proxies };
+    return {
+      ...g,
+      name: newName,
+      proxies: g.proxies.map((p) =>
+        p === "DIRECT" || p === "REJECT" ? p : normalizeGroupName(p)
+      ),
+    };
   });
 
   const rename = (policy) => {
