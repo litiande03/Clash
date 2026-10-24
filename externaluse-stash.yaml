@@ -400,11 +400,29 @@ rule-providers:
     format: text
     url: https://raw.githubusercontent.com/litiande03/Clash/refs/heads/master/rules/ProxyGFWlist1.list
     interval: 86400
+  global:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global.list
+    interval: 86400
+  chinadomain:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list
+    interval: 86400
   chinacompanyip:
     type: http
     behavior: classical
     format: text
     url: https://raw.githubusercontent.com/litiande03/Clash/refs/heads/master/rules/ChinaCompanyIp.list
+    interval: 86400
+  chinaip:
+    type: http
+    behavior: classical
+    format: text
+    url: https://raw.githubusercontent.com/litiande03/Clash/refs/heads/master/rules/ChinaIp.list
     interval: 86400
 
 rules:
@@ -424,6 +442,9 @@ rules:
   - RULE-SET,tiktok,TikTok
   - RULE-SET,google,Google
   - RULE-SET,proxygfwlist1,国外流量
+  - RULE-SET,global,国外流量
+  - RULE-SET,chinadomain,国内流量
   - RULE-SET,chinacompanyip,国内流量,no-resolve
+  - RULE-SET,chinaip,国内流量,no-resolve
   - GEOIP,CN,国内流量,no-resolve
   - MATCH,漏网之鱼
