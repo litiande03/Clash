@@ -7,6 +7,9 @@
  * 用法（Clash Verge Rev）：
  *   订阅 → 脚本 → 粘贴本文件全部内容 → 启用
  *
+ * 若要按 externaluse.ini 完整重建分组/规则（带 icon），用：
+ *   scripts/externaluse-overwrite.js
+ *
  * 文档：https://clashvergerev.com/en/guide/script
  *
  * 注意：Verge 脚本不能 require，图标表需与 group-icons.js 手工同步。
