@@ -14,7 +14,6 @@ Clash/
 │   └── macao/             # 澳门相关 ini
 ├── scripts/               # 生成 / 覆写辅助脚本
 └── local/                 # 仅本机（已 gitignore）
-    ├── subscriptions/     # 机场订阅快照
     └── openwrt/           # OpenClash UCI 备份
 ```
 
@@ -23,7 +22,7 @@ Clash/
 | 场景 | 文件 |
 |------|------|
 | 家庭 Subconverter | `profiles/home/Home.ini` |
-| 家庭 OpenClash 覆写 | `profiles/home/Home_OpenClash_Overwrite_V2.conf` |
+| 家庭 OpenClash 覆写 | `profiles/home/Home_OpenClash_Overwrite.conf` |
 | 外用 Subconverter | `profiles/externaluse/externaluse.ini` |
 | 外用 Shadowrocket | `profiles/externaluse/externaluse-shadowrocket.conf` |
 | 外用 Stash | `profiles/externaluse/externaluse-stash.yaml` |
@@ -33,7 +32,7 @@ Clash/
 
 `icons/`、`rules/` 路径保持不变。配置文件已迁到 `profiles/`、`base/`，推送后请更新订阅/覆写地址，例如：
 
-- `.../master/profiles/home/Home_OpenClash_Overwrite_V2.conf`
+- `.../master/profiles/home/Home_OpenClash_Overwrite.conf`
 - `.../master/base/clash-base-nodnsleak.yml`
 - `.../master/profiles/externaluse/externaluse-stash.yaml`
 
