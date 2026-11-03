@@ -1,5 +1,6 @@
 /**
- * 从 externaluse-shadowrocket.conf 生成 Stash 用的 externaluse-stash.yaml
+ * 从 profiles/externaluse/externaluse-shadowrocket.conf
+ * 生成 profiles/externaluse/externaluse-stash.yaml
  * 只含 DNS / 分组 / 分流 / icon；机场订阅在 Stash 里自行添加（不写 proxy-providers）
  *
  * 用法：node scripts/build-externaluse-yaml.js
@@ -9,8 +10,18 @@ const path = require("path");
 const { normalizeGroupName, getIconUrl } = require("./group-icons");
 
 const root = path.join(__dirname, "..");
-const confPath = path.join(root, "externaluse-shadowrocket.conf");
-const outPath = path.join(root, "externaluse-stash.yaml");
+const confPath = path.join(
+  root,
+  "profiles",
+  "externaluse",
+  "externaluse-shadowrocket.conf"
+);
+const outPath = path.join(
+  root,
+  "profiles",
+  "externaluse",
+  "externaluse-stash.yaml"
+);
 
 function parseSections(text) {
   const sections = {};
@@ -185,7 +196,7 @@ function renderYaml(groups, providers, rules) {
 
   const ruleBlocks = rules.map((r) => `  - ${r}`).join("\n");
 
-  return `# 外用 Stash 配置（由 externaluse-shadowrocket.conf 生成）
+  return `# 外用 Stash 配置（由 profiles/externaluse/externaluse-shadowrocket.conf 生成）
 # 只含 DNS / 分组 / 分流 / icon；机场订阅请在 Stash 里自行添加
 # 策略组用 include-all，会自动汇总 Stash 已添加订阅里的节点
 # 用法：
@@ -193,7 +204,7 @@ function renderYaml(groups, providers, rules) {
 # 2. 配置 > 从文件/URL 导入本 yaml，模式选 rule
 # 重新生成：node scripts/build-externaluse-yaml.js
 # 远程更新（推到仓库后）：
-# https://raw.githubusercontent.com/litiande03/Clash/refs/heads/master/externaluse-stash.yaml
+# https://raw.githubusercontent.com/litiande03/Clash/refs/heads/master/profiles/externaluse/externaluse-stash.yaml
 
 mode: rule
 log-level: info

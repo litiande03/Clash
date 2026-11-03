@@ -1,5 +1,5 @@
 /**
- * externaluse 覆写脚本（对标 externaluse.ini）
+ * externaluse 覆写脚本（对标 profiles/externaluse/externaluse.ini）
  * - 重建 proxy-groups / rule-providers / rules
  * - 分组去 emoji，补 icons/
  * - 保留订阅里的 proxies / proxy-providers

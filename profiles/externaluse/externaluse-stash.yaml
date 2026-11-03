@@ -6,7 +6,7 @@
 # 2. 配置 > 从文件/URL 导入本 yaml，模式选 rule
 # 重新生成：node scripts/build-externaluse-yaml.js
 # 远程更新（推到仓库后）：
-# https://raw.githubusercontent.com/litiande03/Clash/refs/heads/master/externaluse-stash.yaml
+# https://raw.githubusercontent.com/litiande03/Clash/refs/heads/master/profiles/externaluse/externaluse-stash.yaml
 
 mode: rule
 log-level: info
