@@ -3,6 +3,7 @@
  * - 重建 proxy-groups / rule-providers / rules
  * - 分组去 emoji，补 icons/
  * - 保留订阅里的 proxies / proxy-providers
+ * - 组内节点按订阅 proxies 原始顺序筛选（不重排）；无 proxies 时回退 include-all
  *
  * 用法：
  * - Clash Verge Rev：订阅 → 脚本 → 粘贴本文件 → 启用
@@ -51,10 +52,34 @@ function main(config) {
   function icon(file) {
     return ICON + file;
   }
+  // 按订阅 proxies 原始顺序取名（不重排）；仅 provider、尚未展开时再回退 include-all
+  function listProxyNames() {
+    if (!Array.isArray(config.proxies)) return [];
+    return config.proxies
+      .map(function (p) {
+        return p && p.name;
+      })
+      .filter(Boolean);
+  }
+  function namesByFilter(filter) {
+    var re = new RegExp(filter, "i");
+    return listProxyNames().filter(function (n) {
+      return re.test(n);
+    });
+  }
   function select(name, proxies, file) {
     return { name: name, type: "select", proxies: proxies, icon: icon(file) };
   }
   function selectFilter(name, filter, file) {
+    var proxies = namesByFilter(filter);
+    if (proxies.length > 0) {
+      return {
+        name: name,
+        type: "select",
+        proxies: proxies,
+        icon: icon(file),
+      };
+    }
     return {
       name: name,
       type: "select",
@@ -64,16 +89,22 @@ function main(config) {
     };
   }
   function urlTest(name, filter, file, interval, tolerance) {
-    return {
+    var proxies = namesByFilter(filter);
+    var group = {
       name: name,
       type: "url-test",
-      "include-all": true,
       url: TEST_URL,
       interval: interval || 60,
       tolerance: tolerance || 150,
-      filter: filter,
       icon: icon(file),
     };
+    if (proxies.length > 0) {
+      group.proxies = proxies;
+      return group;
+    }
+    group["include-all"] = true;
+    group.filter = filter;
+    return group;
   }
   function rp(url) {
     return {
