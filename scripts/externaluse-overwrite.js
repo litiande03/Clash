@@ -4,6 +4,7 @@
  * - 分组去 emoji，补 icons/
  * - 保留订阅里的 proxies / proxy-providers
  * - 组内节点按订阅 proxies 原始顺序筛选（不重排）；无 proxies 时回退 include-all
+ * - 链式：澳门名节点 dialer-proxy → 香港节点；仅保留「澳门链式」（奥视引用 / 各地区组港→澳→台）
  *
  * 用法：
  * - Clash Verge Rev：订阅 → 脚本 → 粘贴本文件 → 启用
@@ -150,8 +151,10 @@ function main(config) {
     },
   };
 
+  // 地区顺序固定：港 → 澳(链式) → 台 → …
   const region = [
     "香港节点",
+    "澳门链式",
     "台湾节点",
     "新加坡节点",
     "马来西亚节点",
@@ -159,16 +162,7 @@ function main(config) {
     "美国节点",
     "韩国节点",
   ];
-  const regionWithMo = [
-    "香港节点",
-    "澳门节点",
-    "台湾节点",
-    "新加坡节点",
-    "马来西亚节点",
-    "日本节点",
-    "美国节点",
-    "韩国节点",
-  ];
+  // 非港：不含香港前置/澳门链式
   const regionNoHk = [
     "台湾节点",
     "新加坡节点",
@@ -177,6 +171,16 @@ function main(config) {
     "美国节点",
     "韩国节点",
   ];
+
+  // 链式：澳门名节点 → dialer-proxy: 香港节点（与 Home 覆写一致）
+  var moNameRe = /澳门|澳門|Macao|Macau/i;
+  if (Array.isArray(config.proxies)) {
+    config.proxies.forEach(function (p) {
+      if (p && p.name && moNameRe.test(p.name)) {
+        p["dialer-proxy"] = "香港节点";
+      }
+    });
+  }
 
   config["proxy-groups"] = [
     select(
@@ -191,7 +195,8 @@ function main(config) {
     // 仅测速，不参与分流
     urlTest("自动测速", FILTER_SPEED, "Speedtest.png", 15, 50),
     selectFilter("pixman", FILTER_HK, "myTV_SUPER.png"),
-    urlTest("奥视澳门", FILTER_MO, "tdm.png", 60, 150),
+    // 奥视分流入口：只引用澳门链式
+    select("奥视澳门", ["澳门链式"], "tdm.png"),
     selectFilter("4gtv", FILTER_TW, "4GTV.png"),
     select("内网穿透", ["中国大陆节点", "手动切换", "DIRECT"], "nwct.png"),
     selectFilter("中国大陆节点", FILTER_CN, "cn.png"),
@@ -202,7 +207,7 @@ function main(config) {
     ),
     select(
       "YouTube",
-      ["自动选择"].concat(regionWithMo).concat(["手动切换"]),
+      ["自动选择"].concat(region).concat(["手动切换"]),
       "YouTube.png"
     ),
     select(
@@ -241,7 +246,7 @@ function main(config) {
       "Google.png"
     ),
     selectFilter("香港节点", FILTER_HK, "hk.png"),
-    urlTest("澳门节点", FILTER_MO, "mo.png", 60, 150),
+    selectFilter("澳门链式", FILTER_MO, "mo.png"),
     selectFilter("台湾节点", FILTER_TW, "tw.png"),
     selectFilter("新加坡节点", FILTER_SG, "sg.png"),
     selectFilter("马来西亚节点", FILTER_MY, "my.png"),
